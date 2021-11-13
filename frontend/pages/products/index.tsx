@@ -9,8 +9,9 @@ export default function Products({productId = 100}: ProductsProps) {
     <>
       <ul>
         <li>
+          {/* link to external websites by using the <a> tag */}
           <Link href={"/"}>
-            <a>Home</a>  {/* link to external websites by using the <a> tag */}
+            <a>Home</a>
           </Link>
         </li>
         <li>
@@ -19,7 +20,8 @@ export default function Products({productId = 100}: ProductsProps) {
           </Link>
         </li>
         <li>
-          <Link href={"/products/2"} replace={true}>  {/* replace clears the history stack and sends the user back to the homepage */}
+          {/* replace clears the history stack and sends the user back to the homepage */}
+          <Link href={"/products/2"} replace={true}>
             <a>Product 2</a>
           </Link>
         </li>
