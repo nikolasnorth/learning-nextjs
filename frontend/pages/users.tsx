@@ -1,18 +1,7 @@
+import User from "../components/User";
+
 interface UsersPageStaticProps {
   users: any;
-}
-
-export default function UsersPage({users}: UsersPageStaticProps) {
-  return (
-    <>
-      <h1>List of users:</h1>
-      <ul>
-        {users && users.map((user: any) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
-    </>
-  );
 }
 
 export async function getStaticProps(): Promise<{ props: UsersPageStaticProps }> {
@@ -23,4 +12,17 @@ export async function getStaticProps(): Promise<{ props: UsersPageStaticProps }>
       users: data,
     }
   };
+}
+
+export default function UsersPage({users}: UsersPageStaticProps) {
+  return (
+    <>
+      <h1>List of users:</h1>
+      <ul>
+        {users && users.map((user: any) => (
+          <User user={user} key={user.id} />
+        ))}
+      </ul>
+    </>
+  );
 }
