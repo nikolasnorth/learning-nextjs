@@ -1,5 +1,6 @@
 import {GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult} from "next";
 import {ParsedUrlQuery} from "querystring";
+import {useRouter} from "next/router";
 
 interface Props {
   post: any;
@@ -16,6 +17,11 @@ export async function getStaticProps({params}: GetStaticPropsContext): Promise<G
   }
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.postId}`);
   const data = await res.json();
+  if (!data.id) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: {
       post: data,
@@ -30,15 +36,20 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult<Paths>> {
   const paths = data.map((post: any) => {
     return {
       params: {postId: `${[post.id]}`}
-    }
-  })
+    };
+  });
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
 export default function Post({post}: Props) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <>
       <h2>{post.id} {post.title}</h2>
