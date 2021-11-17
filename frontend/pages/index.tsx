@@ -25,6 +25,11 @@ export default function Home() {
             <a>Products</a>
           </Link>
         </li>
+        <li>
+          <Link href={"/posts"}>
+            <a>Posts</a>
+          </Link>
+        </li>
       </ul>
       <button onClick={handleClick}>
         Place Order
