@@ -25,12 +25,15 @@ export async function getStaticProps({params}: GetStaticPropsContext): Promise<G
 
 // Retrieves data for static pages at build time.
 export async function getStaticPaths(): Promise<GetStaticPathsResult<Paths>> {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await res.json();
+  const paths = data.map((post: any) => {
+    return {
+      params: {postId: `${[post.id]}`}
+    }
+  })
   return {
-    paths: [
-      {params: {postId: '1'}},
-      {params: {postId: '2'}},
-      {params: {postId: '3'}},
-    ],
+    paths: paths,
     fallback: false,
   };
 }
