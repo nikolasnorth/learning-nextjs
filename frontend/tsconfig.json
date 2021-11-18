@@ -20,7 +20,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/layout/*": ["components/layout/*"]
+      "@components/*": ["components/*"]
     }
   },
   "include": [
