@@ -11,9 +11,12 @@ interface PropsContext extends ParsedUrlQuery {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<PropsContext>): Promise<GetServerSidePropsResult<Props>> {
+  // Access request, response and query objects:
+  const {req, res, query} = context;
+
   const category = context.params?.category || "";
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts?category=${category}`);
-  const data = await res.json();
+  const articlesRes = await fetch(`https://jsonplaceholder.typicode.com/posts?category=${category}`);
+  const data = await articlesRes.json();
   return {
     props: {
       articles: data,
